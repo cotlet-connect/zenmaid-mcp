@@ -1,0 +1,13 @@
+---
+description: Work in ZenMaid through Cotlet.dev
+globs:
+alwaysApply: false
+---
+
+# ZenMaid through Cotlet.dev
+
+- First call `cotlet_app_guide` with app "zenmaid".
+- Then use `cotlet_browser_open`, `cotlet_browser_read` and `cotlet_browser_click`, one call at a time. Wait for each answer.
+- At a sign-in page or CAPTCHA, stop and give the user the browser link.
+- Ask the user before sending, publishing, deleting or paying.
+- Close the browser with `cotlet_browser_close` when done.

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "cotlet": {
+      "url": "https://cotlet.dev/mcp/v1",
+      "headers": {
+        "Authorization": "Bearer ${COTLET_API_KEY}"
+      }
+    }
+  }
+}

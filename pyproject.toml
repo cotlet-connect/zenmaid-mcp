@@ -1,0 +1,29 @@
+[project]
+name = "zenmaid-mcp"
+version = "1.1.0"
+description = "Connect ZenMaid to Claude Code, ChatGPT and any AI agent through Cotlet.dev, a hosted MCP server. No ZenMaid API key needed."
+readme = "README.md"
+license = "Elastic-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Cotlet.dev", email = "contact@cotlet.dev" }]
+keywords = ["zenmaid", "zenmaid api", "zenmaid mcp", "mcp server", "claude", "chatgpt", "ai agent", "cotlet"]
+classifiers = ["Programming Language :: Python :: 3", "Topic :: Office/Business"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://cotlet.dev/integrations/zenmaid-api-mcp-server?utm_source=pypi&utm_medium=package&utm_campaign=zenmaid"
+Source = "https://github.com/cotlet-connect/zenmaid-mcp"
+
+[project.scripts]
+zenmaid-mcp = "zenmaid_agent:main"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel.force-include]
+"zenmaid_agent.py" = "zenmaid_agent.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["zenmaid_agent.py", "README.md", "LICENSE", "mcp.json", "Dockerfile", "glama.json", "skills", "examples", ".cursor"]
