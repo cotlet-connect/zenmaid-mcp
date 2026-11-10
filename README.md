@@ -105,6 +105,7 @@ ZenMaid has no official MCP server. Zapier offers a third-party ZenMaid MCP conn
 
 - [ZenMaid on Cotlet.dev](https://cotlet.dev/integrations/zenmaid-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=zenmaid&utm_content=find)
 - [PyPI package zenmaid-mcp](https://pypi.org/project/zenmaid-mcp/)
+- [Odel](https://odel.app/modules/cotlet/zenmaid)
 - [Step-by-step guide (PDF) on Internet Archive](https://archive.org/details/cotlet-connect-zenmaid-to-ai-agents-guide)
 
 ## Also works with
