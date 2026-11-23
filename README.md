@@ -1,32 +1,68 @@
-# How to connect ZenMaid to Claude Code, ChatGPT and any AI agent
+# ZenMaid API integration and MCP server: connect ZenMaid to ChatGPT, Claude and any AI agent
 
-**Yes, Claude, ChatGPT and other AI agents can work in your ZenMaid account.** ZenMaid has no official app in the ChatGPT or Claude directories, and its documentation points integrations to Zapier. Cotlet.dev connects your own signed-in ZenMaid account to any AI agent, so you can ask in plain words and the AI schedules jobs, finds openings and updates customers for you.
+ZenMaid API integration and MCP server, unofficial, by Cotlet. Your AI works in your own signed-in ZenMaid account: the schedule, recurring cleans, cleaners, clock-ins and payroll, customers, estimates and invoices, on the same screens your login opens. No developer and no ZenMaid API key needed. Cotlet is independent and is not affiliated with ZenMaid.
 
-## What you can ask
+**Does ZenMaid have an API or an MCP server?** ZenMaid has no public API: its help center says it has "no REST endpoints, webhook subscriptions, or programmatic data access", only Zapier (checked 23 Nov 2026). Its Zapier app, on the Pro Max plan, has 11 triggers and 4 create-only actions (appointment, booking, cleaner, customer); CSV exports are Pro Max only too. ZenMaid has no MCP server and no ChatGPT or Claude app; its own magazine suggests letting Claude or ChatGPT work in ZenMaid through a browser, which is what Cotlet does.
 
-> Schedule a 3-hour deep clean for Maria Lopez at 42 Oak Street on Thursday at 9 am with Team B.
+## What cleaning business owners ask their AI to do in ZenMaid
 
-> Where are the open slots next week for a 2-hour standard clean? List them by day.
+| Job | Ask your AI | Make it repeat |
+|---|---|---|
+| Payroll check | "Check this week's cleaner hours, find forgotten clock-outs and split overtime, before I run payroll." | Weekly |
+| Hours for Gusto or ADP | "Total last week's hours and overtime per cleaner in the format I import into Gusto." | Weekly |
+| Tomorrow's first-time cleans | "List tomorrow's first-time cleans and flag job notes that look unclear or risky." | Daily |
+| Invoices from finished jobs | "Make invoices for today's completed jobs and list them for QuickBooks. Show me before you send any." | Daily |
+| Clients who stopped rebooking | "List clients who have not had a clean in 6 weeks and draft a win-back message for each. Send nothing yet." | Weekly |
+| Quote follow-ups | "List estimates sent this week with no answer and draft a follow-up for each." | Weekly |
+| Profit per job type | "Show revenue, cleaner hours and profit per hour by job type for last month." | Monthly |
+| Change many recurring cleans | "Move every Friday clean for the Rivera team next week to Thursday. Show me first." | When plans change |
+| Leads into ZenMaid | "Add the leads from my website form and property-manager emails as customers with the requested clean." | Your own endpoint, called from your form tool or GoHighLevel |
+| Appointments in a spreadsheet | "Put each day's appointments with team, customer and price in my Google Sheet." | Your own endpoint, called from Google Sheets |
+| Records out before you cancel | "Export all customers, appointments and payroll before I cancel, even on a plan without CSV export." | Once |
 
-> Add a new customer, David Chen at 18 Pine Ave, with a biweekly clean every other Monday at 1 pm.
+Your AI asks you before it sends, books or changes anything. Payments stay in your hands: Cotlet refuses payments.
 
-> Which recurring customers have no job booked in the next 30 days? Show their last clean date.
+## Your own ZenMaid API, built with Cotlet
 
-> Move all of Kelly's Friday jobs to Rosa and list the customers affected.
+ZenMaid gives you no API; its Zapier app only creates records, on the Pro Max plan. With Cotlet you build your own: your AI does the job once in your Cloud Browser, you save it as an endpoint, and you call it from Google Sheets, QuickBooks, Gusto, GoHighLevel, Zapier, Make, n8n, your own code.
+
+Examples you can build in a few minutes (none of them exists until you build it):
+
+| Endpoint you build | What it returns or does |
+|---|---|
+| `appointments-for-day` | appointments for a date with team, customer, address and price |
+| `cleaner-hours` | clock-ins, hours and overtime per cleaner for a period |
+| `completed-jobs` | jobs completed on a date, ready to invoice |
+| `lapsed-customers` | customers with no clean for the weeks you name |
+| `open-estimates` | estimates with no answer, with customer and total |
+| `new-customer` | adds a customer with address and the requested clean (writes only after you allow it) |
+
+Call it with your Cotlet API key, JSON in and JSON out:
+
+```bash
+curl -X POST https://cotlet.dev/api/v1/custom/appointments-for-day \
+  -H "Authorization: Bearer $COTLET_API_KEY" -H "Content-Type: application/json" -d '{}'
+```
+
+Limits: one call runs up to 90 seconds, writes wait for your consent, payments are blocked. Start here: https://cotlet.dev/app/custom-api/new?app=zenmaid
 
 ## Connect in 2 minutes
 
-Get your API key at https://cotlet.dev/app and export it as `COTLET_API_KEY`.
+Sign up at https://cotlet.dev, sign in to ZenMaid once in your Cloud Browser, then add Cotlet to your AI.
+
+### Claude
+
+Settings → Connectors → Add custom connector, paste `https://cotlet.dev/mcp/v1` and sign in with Cotlet.dev.
+
+### ChatGPT
+
+Open Plugins in ChatGPT, choose Create as a plugin, paste `https://cotlet.dev/mcp/v1` and sign in with Cotlet.dev. No API key needed.
 
 ### Claude Code
 
 ```bash
 claude mcp add --transport http cotlet https://cotlet.dev/mcp/v1 --header "Authorization: Bearer $COTLET_API_KEY"
 ```
-
-### ChatGPT
-
-Settings → Apps → add connector URL `https://cotlet.dev/mcp/v1`, then sign in with Cotlet.dev. No API key needed.
 
 ### Cursor
 
@@ -83,76 +119,45 @@ python3 zenmaid_agent.py tools     # list Cotlet.dev tools
 python3 zenmaid_agent.py serve     # start the stdio MCP server (same as no argument)
 ```
 
-## Questions from ZenMaid users
-
+## Questions from ZenMaid owners
 **Does ZenMaid have an API?**
 
-ZenMaid's documentation directs integrations through Zapier. Cotlet.dev works in your ZenMaid account directly, so your AI agent can schedule jobs and manage customers without setting up Zaps.
+No. ZenMaid's help center says it has no REST endpoints, webhook subscriptions or programmatic data access, only Zapier (checked 23 Nov 2026). With Cotlet you build your own endpoints in your signed-in ZenMaid account.
 
-**How do I connect ZenMaid to ChatGPT?**
+**Is there an official ZenMaid MCP server or ChatGPT app?**
 
-Add Cotlet.dev as an app in ChatGPT (Settings → Apps, connector URL `https://cotlet.dev/mcp/v1`), sign in to ZenMaid once in your Cotlet.dev Cloud Browser, and ask ChatGPT in plain words. No code and no ZenMaid API key.
+No. ZenMaid's own magazine suggests letting Claude or ChatGPT work in ZenMaid through a browser. Cotlet does that in your own Cloud Browser and works in the ChatGPT and Claude apps and any MCP client.
 
-**Is there a way to use Claude with ZenMaid?**
+**How do I send ZenMaid hours to Gusto, ADP or Paychex?**
 
-Yes. In Claude Code run the one-line `claude mcp add` command above; in the Claude app add `https://cotlet.dev/mcp/v1` as a custom connector. Claude then works in your own ZenMaid account.
+Your AI totals hours and overtime per cleaner, fixes forgotten clock-outs after your OK and prepares the file your payroll tool imports.
 
-**Is there a ZenMaid MCP server?**
+**How do I get ZenMaid invoices into QuickBooks?**
 
-ZenMaid has no official MCP server. Zapier offers a third-party ZenMaid MCP connection. Cotlet.dev is a hosted MCP server that works in ZenMaid for you, 24/7, with Claude, ChatGPT, Cursor, Codex, n8n, Make and Zapier.
+Your AI makes invoices for completed jobs and lists them, with customers, for your QuickBooks import or bookkeeper.
+
+**Can AI follow up on my ZenMaid estimates?**
+
+Yes. It lists estimates with no answer and drafts a follow-up for each. Nothing goes out until you say yes.
+
+**How do I export my ZenMaid data without the Pro Max plan?**
+
+CSV export is a Pro Max feature. Your AI reads customers, appointments and payroll from the screens your login opens and saves them to a spreadsheet.
+
+**Is it safe to let an AI agent work in my ZenMaid account?**
+
+Cotlet works in your own signed-in session in your Cloud Browser and asks you before it sends, books or changes anything.
 
 ## Find it on
 
-- [ZenMaid on Cotlet.dev](https://cotlet.dev/integrations/zenmaid-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=zenmaid&utm_content=find)
+- [ZenMaid MCP server on Cotlet.dev](https://cotlet.dev/integrations/zenmaid-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=zenmaid&utm_content=find)
+- [ZenMaid API with Cotlet](https://cotlet.dev/integrations/api/zenmaid?utm_source=github&utm_medium=readme&utm_campaign=zenmaid&utm_content=find)
+- [Does ZenMaid have an API or MCP server?](https://cotlet.dev/api-mcp-status/zenmaid?utm_source=github&utm_medium=readme&utm_campaign=zenmaid&utm_content=find)
 - [PyPI package zenmaid-mcp](https://pypi.org/project/zenmaid-mcp/)
-- [Odel](https://odel.app/modules/cotlet/zenmaid)
-- [mcpbeat](https://mcpbeat.com/mcp-servers/cotlet/zenmaid/)
-- [Step-by-step guide (PDF) on Internet Archive](https://archive.org/details/cotlet-connect-zenmaid-to-ai-agents-guide)
 
-## Also works with
+## More cleaning apps on Cotlet
 
-- [Mangomint MCP](https://github.com/cotlet-connect/mangomint-mcp)
-- [Wanderlog MCP](https://github.com/cotlet-connect/wanderlog-mcp)
-- [SmugMug MCP](https://github.com/cotlet-connect/smugmug-mcp)
-- [Garmin Connect MCP](https://github.com/cotlet-connect/garmin-mcp)
-- [Housecall Pro MCP](https://github.com/cotlet-connect/housecall-pro-mcp)
-- [Medium MCP](https://github.com/cotlet-connect/medium-mcp)
-- [Crexi MCP](https://github.com/cotlet-connect/crexi-mcp)
-- [DistroKid MCP](https://github.com/cotlet-connect/distrokid-mcp)
-- [LinkedIn MCP](https://github.com/cotlet-connect/linkedin-mcp)
-- [EstimateOne MCP](https://github.com/cotlet-connect/estimateone-mcp)
-- [Google Search Console MCP](https://github.com/cotlet-connect/google-search-console-mcp)
-- [Lichess MCP](https://github.com/cotlet-connect/lichess-mcp)
-- [Strava MCP](https://github.com/cotlet-connect/strava-mcp)
-- [StreamElements MCP](https://github.com/cotlet-connect/streamelements-mcp)
-- [Meetup MCP](https://github.com/cotlet-connect/meetup-mcp)
-- [AccuRanker MCP](https://github.com/cotlet-connect/accuranker-mcp)
-- [GetYourGuide MCP](https://github.com/cotlet-connect/getyourguide-mcp)
-- [Idealista MCP](https://github.com/cotlet-connect/idealista-mcp)
-- [Riverside MCP](https://github.com/cotlet-connect/riverside-mcp)
-- [Udemy MCP](https://github.com/cotlet-connect/udemy-mcp)
-- [Faire MCP](https://github.com/cotlet-connect/faire-mcp)
-- [Teachable MCP](https://github.com/cotlet-connect/teachable-mcp)
-- [Vagaro MCP](https://github.com/cotlet-connect/vagaro-mcp)
-- [Buildertrend MCP](https://github.com/cotlet-connect/buildertrend-mcp)
-- [Zoopla MCP](https://github.com/cotlet-connect/zoopla-mcp)
-- [Dribbble MCP](https://github.com/cotlet-connect/dribbble-mcp)
-- [Hostelworld MCP](https://github.com/cotlet-connect/hostelworld-mcp)
-- [Mashvisor MCP](https://github.com/cotlet-connect/mashvisor-mcp)
-- [Rent Manager MCP](https://github.com/cotlet-connect/rent-manager-mcp)
-- [ThriveCart MCP](https://github.com/cotlet-connect/thrivecart-mcp)
-- [Fresha MCP](https://github.com/cotlet-connect/fresha-mcp)
-- [Booksy MCP](https://github.com/cotlet-connect/booksy-mcp)
 - [BookingKoala MCP](https://github.com/cotlet-connect/bookingkoala-mcp)
-- [Milanote MCP](https://github.com/cotlet-connect/milanote-mcp)
-- [Partiful MCP](https://github.com/cotlet-connect/partiful-mcp)
-- [Contractor Foreman MCP](https://github.com/cotlet-connect/contractor-foreman-mcp)
-- [Pixieset MCP](https://github.com/cotlet-connect/pixieset-mcp)
-- [GlossGenius MCP](https://github.com/cotlet-connect/glossgenius-mcp)
-- [All apps connected through Cotlet.dev](https://github.com/cotlet-connect)
-
----
-
-More: https://cotlet.dev/integrations/zenmaid-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=zenmaid
-
-Start free: https://cotlet.dev/signup?app=zenmaid&utm_source=github&utm_medium=readme&utm_campaign=zenmaid
+- [Housecall Pro MCP](https://github.com/cotlet-connect/housecall-pro-mcp)
+- [Service Autopilot MCP](https://github.com/cotlet-connect/service-autopilot-mcp)
+- [Invoice Simple MCP](https://github.com/cotlet-connect/invoice-simple-mcp)
