@@ -119,6 +119,164 @@ python3 zenmaid_agent.py tools     # list Cotlet.dev tools
 python3 zenmaid_agent.py serve     # start the stdio MCP server (same as no argument)
 ```
 
+## What you can ask your AI to do in ZenMaid
+
+These are real jobs ZenMaid users asked about. Cotlet lets ChatGPT, Claude or any MCP client do them in your own signed-in ZenMaid account.
+
+### Exports and your data
+
+#### How do I export all my ZenMaid customers, appointments and payroll to CSV when my plan does not include exports?
+
+Yes. ZenMaid's own Data exports are on the Pro Max plan only. With Cotlet, ChatGPT or Claude opens your signed-in ZenMaid account, reads the Contacts, Scheduling and Payroll pages and gives you the rows as a CSV or a Google Sheet.
+
+Ask your agent: "Read all my ZenMaid contacts and this month's appointments and give me one CSV with name, address, service, date and price."
+
+As an API endpoint: Yes. Do the export once with your agent in Cotlet and save it as an endpoint, then call it every morning from n8n, Make or Zapier to add the day's appointments to Google Sheets.
+
+#### How do I get all my records out of ZenMaid before I cancel?
+
+Yes. With Cotlet, your agent goes through your signed-in ZenMaid account page by page: contacts, recurring services, past appointments, invoices and cleaners. It saves each list as a file you keep, so you can cancel without losing your history.
+
+Ask your agent: "Save every ZenMaid contact, recurring service, past appointment and invoice to separate CSV files before I cancel my plan."
+
+#### How do I import my customers and recurring schedule into ZenMaid from Jobber or a spreadsheet?
+
+Partly. ZenMaid has no self-serve import; its team imports a file for you in 2 to 4 business days. With Cotlet, your agent can add the customers and recurring services one by one in ZenMaid from your spreadsheet. Nothing is created until you say yes.
+
+Ask your agent: "Take the customers in this spreadsheet and add each one to ZenMaid with their address and recurring service. Show me the first five before you start."
+
+### Invoices, QuickBooks and profit
+
+#### How do I connect ZenMaid to QuickBooks Online so invoices and customers sync without retyping?
+
+Yes. ZenMaid's help centre offers QuickBooks only through Zapier on Pro Max. With Cotlet, your agent reads the day's completed jobs in ZenMaid and enters the matching invoices in QuickBooks Online, both signed in in your Cloud Browser. Nothing is entered until you say yes.
+
+Ask your agent: "Take today's completed ZenMaid jobs and create the matching invoices in QuickBooks Online. Show me the list before you enter anything."
+
+As an API endpoint: Yes. Save the daily invoice run as an endpoint in Cotlet and call it every evening from n8n, Make or Zapier.
+
+#### How do I automate invoices and late-payment reminders in ZenMaid?
+
+Yes. With Cotlet, ChatGPT or Claude lists the unpaid invoices in your ZenMaid account, sorts them by how late they are and drafts a polite reminder for each client. Nothing is sent until you say yes.
+
+Ask your agent: "List my unpaid ZenMaid invoices older than 7 days and draft a short reminder for each client."
+
+As an API endpoint: Yes. Save the unpaid invoice list as an endpoint in Cotlet and call it every Monday from n8n, Make or Zapier.
+
+#### Can AI tell me profit per hour per job type from my ZenMaid data?
+
+Yes. With Cotlet, your agent reads revenue per appointment and the clocked hours report in ZenMaid, then works out revenue and labour cost per hour for each service type. ZenMaid's metric view leaves out tips and taxes, so the agent says which numbers it used.
+
+Ask your agent: "From last month's ZenMaid appointments and clocked hours, show revenue and labour cost per hour for each service type."
+
+As an API endpoint: Yes. Save the monthly profit table as an endpoint in Cotlet and call it from n8n, Make or a script on the first of each month.
+
+### Payroll and hours
+
+#### Can AI check my cleaners' hours in ZenMaid, fix forgotten clock-outs and warn me before payroll?
+
+Yes. With Cotlet, ChatGPT or Claude reads the clocked hours report in your ZenMaid account, lists shifts with no clock-out or odd lengths and proposes the right end time for each. Nothing changes until you say yes.
+
+Ask your agent: "Check this week's ZenMaid clocked hours, list shifts with no clock-out or over 10 hours, and propose the right end time for each."
+
+As an API endpoint: Yes. Save the check as an endpoint in Cotlet and call it from n8n, Make or Zapier every Friday before you run payroll.
+
+#### How do I send ZenMaid payroll to Gusto, ADP or Paychex without retyping hours?
+
+Yes. With Cotlet, your agent reads each cleaner's hours and pay in ZenMaid's Payroll page and enters them in Gusto, ADP or Paychex, signed in in the same Cloud Browser. Nothing is submitted until you say yes.
+
+Ask your agent: "Take this pay period's hours from ZenMaid Payroll and fill them into Gusto for each cleaner. Stop before submitting."
+
+As an API endpoint: Yes. Save the payroll read as an endpoint in Cotlet that returns hours per cleaner as JSON, and pass it to your payroll tool from n8n or Make.
+
+### Leads, quotes and win-backs
+
+#### Can AI write and send follow-ups to the quotes I sent from ZenMaid and stop when the client replies?
+
+Yes. With Cotlet, ChatGPT or Claude lists the ZenMaid leads with a quote and no booking, drafts a follow-up for each and skips anyone who already replied. Nothing is sent until you say yes.
+
+Ask your agent: "List ZenMaid leads quoted in the last 14 days with no booking and draft a follow-up for each one who has not replied."
+
+As an API endpoint: Yes. Save the open-quote list as an endpoint in Cotlet and call it every two days from n8n, Make or Zapier.
+
+#### Can AI tell me which ZenMaid clients stopped rebooking and write a win-back message?
+
+Yes. With Cotlet, your agent finds clients in ZenMaid whose last clean was more than 60 days ago and who have no future appointment, then writes a short win-back message for each. Nothing is sent until you say yes.
+
+Ask your agent: "Find ZenMaid clients with no clean in 60 days and nothing booked, and draft a win-back message for each."
+
+As an API endpoint: Yes. Save the lapsed-client list as an endpoint in Cotlet and call it monthly from n8n, Make or Zapier.
+
+#### How do I connect ZenMaid to GoHighLevel so new contacts and leads follow up automatically?
+
+Yes. With Cotlet, your agent reads new ZenMaid contacts and leads and adds them to GoHighLevel, both signed in in your Cloud Browser, so your GoHighLevel follow-ups start. Nothing is added until you say yes.
+
+Ask your agent: "Add every ZenMaid lead from the last 7 days to GoHighLevel as a contact with their phone, email and the service they asked about."
+
+As an API endpoint: Yes. Save the new-lead read as an endpoint in Cotlet and call it hourly from n8n or Make to push leads into GoHighLevel.
+
+#### How do I get leads from my website, Facebook or property-manager emails into ZenMaid automatically?
+
+Yes. With Cotlet, ChatGPT or Claude reads the lead from your inbox or Facebook page and adds it as a lead contact in ZenMaid with the details it found. Nothing is created until you say yes.
+
+Ask your agent: "Read today's new lead emails and add each person to ZenMaid as a lead with name, phone, address and the service they want."
+
+### Reminders and reviews
+
+#### How do I get ZenMaid, Zapier and Quo (OpenPhone) to send appointment reminders?
+
+Partly. ZenMaid can send up to two text and two email reminders per appointment on its own. With Cotlet, your agent lists tomorrow's ZenMaid appointments and drafts each reminder for Quo or your own phone line. Cotlet does not send texts itself, and nothing goes out until you say yes.
+
+Ask your agent: "List tomorrow's ZenMaid appointments with client phone and time, and write a reminder text for each that I can send from Quo."
+
+As an API endpoint: Yes. Save tomorrow's appointment list as an endpoint in Cotlet and call it every afternoon from n8n, Make or Zapier to send the texts through Quo.
+
+#### How do I automate Google review requests after each ZenMaid clean?
+
+Partly. ZenMaid's service rating can invite happy clients to Google and Yelp on its own. With Cotlet, your agent lists the cleans finished today without a rating and drafts a review request for each. Nothing is sent until you say yes.
+
+Ask your agent: "List today's finished ZenMaid cleans with no service rating and draft a short Google review request for each client."
+
+As an API endpoint: Yes. Save the list of today's finished cleans as an endpoint in Cotlet and call it every evening from n8n, Make or Zapier.
+
+### Schedule and routes
+
+#### Can Claude or ChatGPT check ZenMaid for first-time cleans and flag odd job notes before they cause a problem?
+
+Yes. With Cotlet, ChatGPT or Claude reads tomorrow's schedule in your ZenMaid account, marks first-time clients and lists notes that need a call, such as pets, keys or access codes.
+
+Ask your agent: "Check tomorrow's ZenMaid schedule, list first-time clients and any job notes about keys, pets, access or special requests."
+
+As an API endpoint: Yes. Save the check as an endpoint in Cotlet and call it every evening from n8n, Make or Zapier to get the list by email.
+
+#### Can AI plan the daily routes for my teams from ZenMaid appointments?
+
+Partly. ZenMaid's Daily Route map shows the day's stops with no optimisation. With Cotlet, your agent reads each team's appointments and addresses and proposes an order of stops with drive times. Moving appointments in ZenMaid waits until you say yes.
+
+Ask your agent: "Read tomorrow's ZenMaid appointments per team and propose the shortest order of stops for each team with estimated drive times."
+
+#### How do I change or cancel many recurring cleans at once in ZenMaid without opening each one?
+
+Yes. With Cotlet, your agent opens each recurring service in ZenMaid for you and makes the same change, such as a new price, a new day or a stop date. Nothing changes until you say yes to the list.
+
+Ask your agent: "Find every ZenMaid recurring service for the Oak Street building and set it to stop after December 31. Show me the list first."
+
+#### How do I sync ZenMaid with Google Calendar so my clients can see their next recurring cleans?
+
+Partly. ZenMaid has no two-way calendar sync. With Cotlet, your agent reads upcoming cleans in ZenMaid and adds or updates the events in your Google Calendar, signed in in the same Cloud Browser. Nothing is added until you say yes.
+
+Ask your agent: "Add next month's ZenMaid cleans to my Google Calendar, one event per appointment with client name and address."
+
+As an API endpoint: Yes. Save the upcoming-cleans read as an endpoint in Cotlet and call it daily from n8n or Make to update Google Calendar.
+
+### Safety
+
+#### Is it safe to let an AI agent log in to my ZenMaid account and run tasks on a schedule?
+
+Yes. With Cotlet, the agent works in your own signed-in ZenMaid session in a Cloud Browser, never sees your password and asks before it changes or sends anything. You can turn ZenMaid off for agents or delete the key at any time.
+
+Ask your agent: "Before you change anything in ZenMaid, show me what you plan to do and wait for my OK."
+
 ## Questions from ZenMaid owners
 **Does ZenMaid have an API?**
 
